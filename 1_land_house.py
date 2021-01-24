@@ -5,6 +5,7 @@
 # 기타옵션
 
 import requests
+import re
 import time
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -33,3 +34,15 @@ for i in range(len(landHouse_types)):
     else:
         landHouse_types_elem[i].click()
 
+# 거래방식
+# trade_types = soup.find_all("label", attrs = {"for":re.compile("^deal")})
+trade_types_btn = browser.find_element_by_id("trade_type_filter")
+trade_types_deal1 = browser.find_element_by_id("deal1")
+trade_types_btn.click()
+time.sleep(0.2)
+trade_types_deal1.click()
+
+# for i in range(len(trade_types)):
+#     if 
+# print(len(trade_types))
+# print(trade_types)
