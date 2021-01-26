@@ -49,11 +49,41 @@ regions_dong_btn = browser.find_element_by_xpath('//*[@id="region_filter"]/div/a
 regions_prvnc_btn.click()
 time.sleep(0.5) # 동작형이기 때문에 일정시간 기다려줘야함
 prvnc_list = browser.find_elements_by_class_name("area_item") # webelement의 텍스트는 .text / elements로 찾으면 list 형태이기 때문에 .text 안됨
-# prvnc_name0 = prvnc_list[0].find_element_by_class_name("radio_label_district") # webelement from webelement 가능함
-# prvnc_name0.click() # 서울은 일단 0, 나중에 for 문으로 여러개 적용 가능함
 
 # 시험삼아 리스트를 뽑아보면
+prvnc_list_arr = []
 for prvnc in prvnc_list:
     name = prvnc.find_element_by_class_name("radio_label_district")
-    print(name.text)
+    prvnc_list_arr = prvnc_list_arr + [name.text]
+print(prvnc_list_arr)
 
+prvnc_name0 = prvnc_list[0].find_element_by_class_name("radio_label_district") # webelement from webelement 가능함
+prvnc_name0.click() # 서울은 일단 0
+
+# 마포구 > 공덕동
+# city랑 dong btn(버튼)은 안눌러줘도 됨. 자동으로 넘어가기 때문
+time.sleep(0.5)
+city_list = browser.find_elements_by_class_name("area_item")
+
+# 시험삼아 리스트를 뽑아보면
+city_list_arr = []
+for city in city_list:
+    name = city.find_element_by_class_name("radio_label_district")
+    city_list_arr = city_list_arr + [name.text]
+print(city_list_arr)
+
+city_name12 = city_list[12].find_element_by_class_name("radio_label_district") # webelement from webelement 가능함
+city_name12.click() # 마포구는 일단 12
+
+time.sleep(0.5)
+dong_list = browser.find_elements_by_class_name("area_item")
+
+# 시험삼아 리스트를 뽑아보면
+dong_list_arr = []
+for dong in dong_list:
+    name = dong.find_element_by_class_name("radio_label_district")
+    dong_list_arr = dong_list_arr + [name.text]
+print(dong_list_arr)
+
+dong_name0 = dong_list[0].find_element_by_class_name("radio_label_district") # webelement from webelement 가능함
+dong_name0.click() # 공덕동은 일단 0
