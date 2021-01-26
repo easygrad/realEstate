@@ -35,14 +35,25 @@ for i in range(len(landHouse_types)):
         landHouse_types_elem[i].click()
 
 # 거래방식
-# trade_types = soup.find_all("label", attrs = {"for":re.compile("^deal")})
 trade_types_btn = browser.find_element_by_id("trade_type_filter")
-trade_types_deal1 = browser.find_element_by_id("deal1")
+trade_types_deal1 = browser.find_element_by_xpath('//*[@id="trade_type_filter"]/div/div[1]/div/ul/li[2]/label')
 trade_types_btn.click()
 time.sleep(0.2)
 trade_types_deal1.click()
 
-# for i in range(len(trade_types)):
-#     if 
-# print(len(trade_types))
-# print(trade_types)
+# 지역: 서울시 > 마포구 > 공덕동
+regions_prvnc_btn = browser.find_element_by_xpath('//*[@id="region_filter"]/div/a/span[1]')
+regions_city_btn = browser.find_element_by_xpath('//*[@id="region_filter"]/div/a/span[2]')
+regions_dong_btn = browser.find_element_by_xpath('//*[@id="region_filter"]/div/a/span[3]')
+
+regions_prvnc_btn.click()
+time.sleep(0.5) # 동작형이기 때문에 일정시간 기다려줘야함
+prvnc_list = browser.find_elements_by_class_name("area_item") # webelement의 텍스트는 .text / elements로 찾으면 list 형태이기 때문에 .text 안됨
+# prvnc_name0 = prvnc_list[0].find_element_by_class_name("radio_label_district") # webelement from webelement 가능함
+# prvnc_name0.click() # 서울은 일단 0, 나중에 for 문으로 여러개 적용 가능함
+
+# 시험삼아 리스트를 뽑아보면
+for prvnc in prvnc_list:
+    name = prvnc.find_element_by_class_name("radio_label_district")
+    print(name.text)
+
