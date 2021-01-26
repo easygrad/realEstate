@@ -87,3 +87,47 @@ print(dong_list_arr)
 
 dong_name0 = dong_list[0].find_element_by_class_name("radio_label_district") # webelement from webelement 가능함
 dong_name0.click() # 공덕동은 일단 0
+
+time.sleep(0.5)
+
+item_inners = browser.find_elements_by_class_name("item_inner ")
+prev_len = len(item_inners)
+
+while True:
+    browser.execute_script("arguments[0].scrollIntoView(true)", item_inners[-1])
+    time.sleep(0.2)
+    curr_len = len(browser.find_elements_by_class_name("item_inner "))
+    print(curr_len, prev_len)
+    if curr_len == prev_len:
+        print("스크롤 완료")
+        print("-"*100)
+        break
+    else:
+        prev_len = curr_len
+        item_inners = browser.find_elements_by_class_name("item_inner ")
+
+soup = BeautifulSoup(browser.page_source, "lxml")
+
+items = soup.find_all("div", attrs = {"class":"item_inner"})
+print("매물 개수: ", len(items))
+print("-"*100)
+
+for index, item in enumerate(items):
+    title = item.find("div", attrs = {"class":"item_title"}).get_text()
+    price_type = item.find("span", attrs = {"class":"type"}).get_text()
+    price = item.find("span", attrs = {"class":"price"}).get_text()
+    spec = item.find("span", attrs = {"class":"spec"}).get_text()
+    detail = browser.find_elements_by_class_name("item_title")[index].click()
+    # detail = item.find("div", attrs = {"class":"item_title"}).click()
+    time.sleep(0.2)
+    detail_tbl = browser.find_element_by_tag_name("tbody")
+    detail_tbl_num = detail_tbl.find_elements_by_tag_name("tr")[12].find_elements_by_tag_name("td")[1].text
+    detail_url = "https://new.land.naver.com/?articleNo=" + detail_tbl_num
+    print(title)
+    print(price_type, " : ", price)
+    print(spec)
+    print(detail_url)
+    print("-"*100)
+    # price = item.find("")
+
+# browser.quit()
