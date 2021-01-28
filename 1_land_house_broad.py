@@ -5,7 +5,7 @@ import random
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
-short_sec = random.uniform(0.2, 0.3)
+short_sec = random.uniform(0.3, 0.5)
 mid_sec = random.uniform(0.5, 1.0)
 long_sec = random.uniform(2, 3)
 
@@ -93,6 +93,7 @@ print(dong_list_arr)
 # print(len(dong_list_arr))
 
 dong_name0 = dong_list[0].find_element_by_class_name("radio_label_district") # webelement from webelement 가능함
+# print(dong_name0.text) # 텍스트 프린트 하려면 클릭 전에 해야 함
 dong_name0.click() # 공덕동은 일단 0
 
 time.sleep(mid_sec)
@@ -114,9 +115,11 @@ for index in range(len(dong_list_arr)):
 
     dong_list = browser.find_elements_by_class_name("area_item")
     dong_name = dong_list[index].find_element_by_class_name("radio_label_district")
-    dong_name.click()
+    print("")
     print("<"*50, dong_name.text, ">"*50)
     print("")
+    dong_name.click()
+
     time.sleep(mid_sec)
 
     # 매물 리스트
@@ -147,9 +150,14 @@ for index in range(len(dong_list_arr)):
         price_type = item.find("span", attrs = {"class":"type"}).get_text()
         price = item.find("span", attrs = {"class":"price"}).get_text()
         spec = item.find("span", attrs = {"class":"spec"}).get_text()
-        detail = browser.find_elements_by_class_name("item_title")[index].click()
-        # detail = item.find("div", attrs = {"class":"item_title"}).click()
+        try:
+            item_inners[index].find_element_by_class_name("label_area").find_element_by_tag_name("a").click()
+            # 네이버에서 보기가 있으면 클릭
+        except:
+            detail = browser.find_elements_by_class_name("item_title")[index].click()
+            # detail = item.find("div", attrs = {"class":"item_title"}).click()
         time.sleep(short_sec)
+    
         detail_tbl = browser.find_element_by_tag_name("tbody")
         detail_tbl_num = detail_tbl.find_elements_by_tag_name("tr")[12].find_elements_by_tag_name("td")[1].text
         detail_url = "https://new.land.naver.com/?articleNo=" + detail_tbl_num
@@ -163,6 +171,7 @@ for index in range(len(dong_list_arr)):
     detail_close = detail_contents.find_element_by_class_name("btn_close")
     detail_close.click()
 # 다음 해결할 문제: 네이버 보기가 있는 경우 네이버 보기 클릭   
+# 그다음 해결할 문제: 매물 없을 때 넘어가기
 
 
 # # 매물 리스트
