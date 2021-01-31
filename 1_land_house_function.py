@@ -327,6 +327,19 @@ def findItemList(prvnc, city, dong):
         print(spec)
         print(detail_url)
         print("-"*100)
+        
+        if index == 0:
+            with open("ItemList.csv", "w", encoding = "utf-8-sig") as f:
+                f.write("Title" + "," + "Type" + "," + "Price" + "," + "Spec1" + "," + "Spec2" + "," + "Spec3" + "," + "URL" +"\n")
+                price = price.replace(",","")
+                f.write(title + "," + price_type + "," + price + "," + spec + "," + detail_url + "\n")
+                f.close()
+        else:
+            with open("ItemList.csv", "a", encoding = "utf-8-sig") as f:
+                price = price.replace(",","")
+                f.write(title + "," + price_type + "," + price + "," + spec + "," + detail_url + "\n")
+                f.close()
+
 
 # findPrvncList()
 # findCityList("서울시")
