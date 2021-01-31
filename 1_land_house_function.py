@@ -344,4 +344,4 @@ def findItemList(prvnc, city, dong):
 # findPrvncList()
 # findCityList("서울시")
 # findDongList("서울시", "마포구")
-findItemList("서울시", "마포구", "공덕동")
+findItemList("강원도", "원주시", "단계동")
