@@ -122,9 +122,14 @@ for index in range(len(dong_list_arr)):
 
     time.sleep(mid_sec)
 
-    # 매물 리스트
+    # 매물 리스트: 매물이 없을 수도 있음!
     item_inners = browser.find_elements_by_class_name("item_inner ")
     prev_len = len(item_inners)
+    if prev_len == 0 :
+        print("매물 없음")
+        continue
+    else:
+        pass
 
     while True:
         browser.execute_script("arguments[0].scrollIntoView(true)", item_inners[-1])
@@ -170,48 +175,5 @@ for index in range(len(dong_list_arr)):
     detail_contents = browser.find_element_by_class_name("detail_panel")
     detail_close = detail_contents.find_element_by_class_name("btn_close")
     detail_close.click()
-# 다음 해결할 문제: 네이버 보기가 있는 경우 네이버 보기 클릭   
-# 그다음 해결할 문제: 매물 없을 때 넘어가기
-
-
-# # 매물 리스트
-# item_inners = browser.find_elements_by_class_name("item_inner ")
-# prev_len = len(item_inners)
-
-# while True:
-#     browser.execute_script("arguments[0].scrollIntoView(true)", item_inners[-1])
-#     time.sleep(short_sec)
-#     curr_len = len(browser.find_elements_by_class_name("item_inner "))
-#     print(curr_len, prev_len)
-#     if curr_len == prev_len:
-#         print("스크롤 완료")
-#         print("-"*100)
-#         break
-#     else:
-#         prev_len = curr_len
-#         item_inners = browser.find_elements_by_class_name("item_inner ")
-
-# soup = BeautifulSoup(browser.page_source, "lxml")
-
-# items = soup.find_all("div", attrs = {"class":"item_inner"})
-# print("매물 개수: ", len(items))
-# print("-"*100)
-
-# for index, item in enumerate(items):
-#     title = item.find("div", attrs = {"class":"item_title"}).get_text()
-#     price_type = item.find("span", attrs = {"class":"type"}).get_text()
-#     price = item.find("span", attrs = {"class":"price"}).get_text()
-#     spec = item.find("span", attrs = {"class":"spec"}).get_text()
-#     detail = browser.find_elements_by_class_name("item_title")[index].click()
-#     # detail = item.find("div", attrs = {"class":"item_title"}).click()
-#     time.sleep(short_sec)
-#     detail_tbl = browser.find_element_by_tag_name("tbody")
-#     detail_tbl_num = detail_tbl.find_elements_by_tag_name("tr")[12].find_elements_by_tag_name("td")[1].text
-#     detail_url = "https://new.land.naver.com/?articleNo=" + detail_tbl_num
-#     print(title)
-#     print(price_type, " : ", price)
-#     print(spec)
-#     print(detail_url)
-#     print("-"*100)
-
-# browser.quit()
+# 다음 해결할 문제: 네이버 보기가 있는 경우 네이버 보기 클릭 (해결)
+# 그다음 해결할 문제: 매물 없을 때 넘어가기 (해결)
